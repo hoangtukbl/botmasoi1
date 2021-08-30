@@ -1,0 +1,93 @@
+import random
+#dem soi
+def lsoi(n,a):
+	dem =0 
+	for i in range(n):
+		string=a[i]
+		if string.find("soi") != -1 :
+			dem = dem +1
+	return dem
+#dem dan
+def ldan(n,a):
+	dem = 0 
+	for i in range(n):
+		string=a[i]
+		if string.find("soi") == -1 :
+			dem = dem +1
+	return dem
+#chon
+def chon(n,a,b,i):
+	l=0
+	l=int(input("chon: "))
+	return l
+#tim
+def tim(b,i,n,p):
+	for i in range(n):
+		if b[i] == p:
+			return i
+#giet
+def giet(dc,a,b,n,i):
+	g=""
+	g=a.pop(dc)
+	g=b.pop(dc)
+	return g
+n=int(input("nhap so luong nguoi choi: "))
+cuu=0
+doc=1000
+a = ["soi","soi","dan","dan","baove","phuthuy","ban","hunter","dan","soia","truonglang","dan","soi","tri"]
+#	  0 	1 		2 	3		4		5		6		7		8		9		10 		 11		12	  13
+b=[]
+for i in range(n):
+	b.append(int(i+1))
+n=n-1
+for i in range(n):
+	m=random.randint(0,n-1)
+	t = b[m]
+	b[m] = b[i]
+	b[i] = t 	#random role
+print(b)
+while lsoi!=0:
+	if lsoi==ldan :
+		print("soi thang")
+		delay(1)
+		exit
+	if lsoi==0:
+		print("dan thang")
+		delay(1)
+		exit
+	if n >= 4 :				#baove
+		print("chon nguoi de bao ve ")
+		dcv=chon(n,a[4],b[4],4) #nguoi dc cover
+		dcv=tim(b,i,n,dcv)	
+	if n>=0 :			   #soi
+		print("chon nguoi de can")
+		can=chon(n,a[0],b[0],0) #soi can
+		can=tim(b,i,n,can)
+		if can == dcv:
+			can = 1000		
+	if n>=5:				#phuthuy
+		print(can," se bi can")
+		if cuu ==0 :
+			cuu=int(input("nhan 0 de khong cuu, 1 de cuu :"))
+			if cuu==0:
+				if int(can) <= n:
+					cc=giet(can,a,b,n,i)
+					print(can," bi giet")
+			else:
+				can=1000
+		print(can)
+		if doc ==1000:
+			print("chon nguoi de dau doc:")
+			doc = chon(n,a[5],b[5],5) #nguoi bi quang doc
+			doc = tim(b,i,n,doc)
+			if int(doc) <= n:
+				cc=giet(doc,a,b,n,i)
+				print(doc, " bi giet")
+	if n>=13:				#tientri
+		print("chon nguoi de soi")
+		xrole=chon(n,a[13],b[13],13)
+		xrole=tim(b,i,n,xrole)
+		print(xrole)
+		print(a[xrole])
+	print(a)
+	print(b)
