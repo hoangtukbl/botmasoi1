@@ -16,13 +16,12 @@ def ldan(n,a):
 			dem = dem +1
 	return dem
 #chon
-def chon(n,a,b,i):
-	l=0
+def chon():
 	l=int(input("chon: "))
 	return l
 #tim
 def tim(b,i,n,p):
-	for i in range(n):
+	for i in range(n+1):
 		if b[i] == p:
 			return i
 #giet
@@ -31,9 +30,14 @@ def giet(dc,a,b,n,i):
 	g=a.pop(dc)
 	g=b.pop(dc)
 	return g
+
+
+
+#main
 n=int(input("nhap so luong nguoi choi: "))
 cuu=0
 doc=1000
+tri=13
 a = ["soi","soi","dan","dan","baove","phuthuy","ban","hunter","dan","soia","truonglang","dan","soi","tri"]
 #	  0 	1 		2 	3		4		5		6		7		8		9		10 		 11		12	  13
 b=[]
@@ -46,48 +50,69 @@ for i in range(n):
 	b[m] = b[i]
 	b[i] = t 	#random role
 print(b)
-while lsoi!=0:
-	if lsoi==ldan :
+while lsoi(n,a)!=0:
+	if lsoi(n,a)==ldan(n,a) :
 		print("soi thang")
 		delay(1)
 		exit
-	if lsoi==0:
+	if lsoi(n,a)==0:
 		print("dan thang")
 		delay(1)
 		exit
-	if n >= 4 :				#baove
+	print(tim(a,i,n,"baove"))
+	if n>= tim(a,i,n,"baove") :				#baove
 		print("chon nguoi de bao ve ")
-		dcv=chon(n,a[4],b[4],4) #nguoi dc cover
+		dcv=chon() #nguoi dc cover
 		dcv=tim(b,i,n,dcv)	
-	if n>=0 :			   #soi
+		print(dcv)
+	if n>= tim(a,i,n,"soi") :			  	#soi
 		print("chon nguoi de can")
-		can=chon(n,a[0],b[0],0) #soi can
+		can=chon() #soi can
 		can=tim(b,i,n,can)
 		if can == dcv:
-			can = 1000		
-	if n>=5:				#phuthuy
-		print(can," se bi can")
-		if cuu ==0 :
-			cuu=int(input("nhan 0 de khong cuu, 1 de cuu :"))
-			if cuu==0:
-				if int(can) <= n:
-					cc=giet(can,a,b,n,i)
-					print(can," bi giet")
-			else:
-				can=1000
-		print(can)
-		if doc ==1000:
-			print("chon nguoi de dau doc:")
-			doc = chon(n,a[5],b[5],5) #nguoi bi quang doc
-			doc = tim(b,i,n,doc)
-			if int(doc) <= n:
-				cc=giet(doc,a,b,n,i)
-				print(doc, " bi giet")
-	if n>=13:				#tientri
+			can = 1000	
+		print(can)	
+	if n>= tri:			#tientri
 		print("chon nguoi de soi")
-		xrole=chon(n,a[13],b[13],13)
+		xrole=chon()
 		xrole=tim(b,i,n,xrole)
 		print(xrole)
 		print(a[xrole])
+	if n>= tim(a,i,n,"phuthuy"):			#phuthuy
+		if can <= n :
+			print(b[can]," se bi can")
+			if cuu ==0 :
+				cuu=int(input("nhan 0 de khong cuu, 1 de cuu :"))
+				if cuu==0:
+					if int(can) <= n:
+						print(b[can]," bi giet")
+						cc=giet(can,a,b,n,i)
+						print(a)
+						print(b)
+						n=n-1
+						tri=tri-1
+				else:
+					can=1000
+		if doc ==1000:
+			print("chon nguoi de dau doc:")
+			doc = chon() #nguoi bi quang doc
+			print(doc)
+			doc = tim(b,i,n,doc)
+			print(doc)
+			if doc <= n:
+				print(b[doc], " bi giet")
+				cc=giet(doc,a,b,n,i)
+				n=n-1
+				tri=tri-1
+	elif can<=n:
+		print(b[can]," bi giet")
+		cc=giet(can,a,b,n,i)
+	print("chon nguoi de treo co:")
+	treoco = chon()
+	treoco = tim(b,i,n,treoco)
+	cc=giet(treoco,a,b,n,i)
+	n=n-1
+	tri=tri-1
+
 	print(a)
 	print(b)
